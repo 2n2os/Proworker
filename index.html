@@ -3,119 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KRONOS | Global Tech Elite</title>
+    <title>KRONOS | Elite Access</title>
     <style>
-        /* Modern Background */
+        /* Smooth Background Animation */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Lightning Strike Effect */
+        /* Lightning Pulse Effect */
         @keyframes lightningStrike {
-            0%, 10%, 80%, 100% { 
-                text-shadow: 0 0 10px rgba(244, 114, 182, 0.5); 
-                color: #f472b6;
-            }
-            82% { 
-                text-shadow: 0 0 50px #f472b6, 0 0 100px #ffffff; 
-                color: #fff;
-                transform: scale(1.05);
-            }
-            84% { 
-                text-shadow: 0 0 20px #f472b6; 
-                color: #f472b6;
-            }
-            86% { 
-                text-shadow: 0 0 60px #f472b6, 0 0 120px #f472b6; 
-                color: #fff;
-            }
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            0%, 100% { text-shadow: 0 0 10px rgba(244, 114, 182, 0.4); color: #f472b6; }
+            92% { text-shadow: 0 0 40px #f472b6, 0 0 80px #ffffff; color: #fff; }
         }
 
         body {
             background: linear-gradient(-45deg, #020617, #0f172a, #1e293b, #020617);
             background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
+            animation: gradientBG 12s ease infinite;
             color: #f8fafc;
             font-family: 'Segoe UI', system-ui, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden;
-            text-align: center;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        .main-container {
+        .auth-container {
             width: 100%;
-            padding: 0 20px;
+            max-width: 400px;
+            padding: 20px;
+            perspective: 1000px;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: transform 0.3s ease;
         }
 
         h1 {
-            font-size: clamp(3rem, 15vw, 6rem); 
+            font-size: 3rem;
             font-weight: 900;
-            color: #f472b6;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            animation: lightningStrike 3.5s linear infinite;
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .tagline {
-            font-size: clamp(0.8rem, 3vw, 1.1rem);
-            color: #94a3b8;
-            margin-top: 25px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        .badge {
-            margin-top: 45px;
-            padding: 12px 30px;
-            border: 1px solid rgba(244, 114, 182, 0.4);
-            border-radius: 2px;
-            font-size: 0.7rem;
-            color: #f472b6;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 4px;
-            display: inline-block;
-            background: rgba(244, 114, 182, 0.03);
+            animation: lightningStrike 4s infinite;
         }
 
-        footer {
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            font-size: 0.65rem;
-            color: #475569;
-            text-transform: uppercase;
+        .subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
             letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 35px;
         }
+
+        /* Modern Input Styling */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 15px 20px;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #f472b6;
+            background: rgba(30, 41, 59, 0.7);
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.2);
+        }
+
+        /* Neon Glow Button */
+        .btn-glow {
+            width: 100%;
+            padding: 15px;
+            background: #f472b6;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-glow:hover {
+            background: #ec4899;
+            box-shadow: 0 0 25px rgba(244, 114, 182, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .toggle-text {
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .toggle-text span {
+            color: #f472b6;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .toggle-text span:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #f472b6;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <h1>KRONOS</h1>
-        <p class="tagline">The Supreme Talent Network | USA & Europe</p>
-        
-        <div class="badge">
-            System Operational
+    <div class="auth-container">
+        <div class="glass-card">
+            <h1>KRONOS</h1>
+            <p class="subtitle">System Gateway</p>
+
+            <div class="input-group">
+                <input type="email" placeholder="Access ID (Email)">
+            </div>
+            
+            <div class="input-group">
+                <input type="password" placeholder="Secure Code">
+            </div>
+
+            <button class="btn-glow">Initialize Login</button>
+
+            <div class="toggle-text">
+                Need clearance? <span>Request Access</span>
+            </div>
         </div>
     </div>
-
-    <footer>
-        © 2025 KRONOS GLOBAL | CEO YASSER
-    </footer>
 
 </body>
 </html>
