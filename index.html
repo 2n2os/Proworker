@@ -2,103 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KRONOS | Elite OS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KRONOS | Elite Access</title>
     <style>
         :root {
             --hot-pink: #f472b6;
             --liquid-glass: rgba(255, 255, 255, 0.05);
-            --error-red: #ff4d4d;
-            --success-green: #00ff88;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: linear-gradient(-45deg, #020617, #0f172a, #1e293b, #020617);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: #020617;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
             color: #fff;
             font-family: -apple-system, system-ui, sans-serif;
+            margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            margin: 0;
+            height: 100vh;
             overflow: hidden;
         }
 
+        /* The Main Liquid Panel */
         .panel {
-            background: var(--liquid-glass);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 40px;
-            padding: 45px 30px;
-            width: 90%;
-            max-width: 380px;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            padding: 35px 25px;
+            width: 88%;
+            max-width: 360px;
             text-align: center;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* تنظيم المسافات بين العناصر */
         }
 
         h1 {
-            font-size: 3rem;
-            letter-spacing: 8px;
+            font-size: 2.8rem;
+            letter-spacing: 6px;
             color: var(--hot-pink);
-            text-shadow: 0 0 25px var(--hot-pink);
-            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(244, 114, 182, 0.4);
+            margin: 0 0 10px 0;
             text-transform: uppercase;
         }
 
-        .input-box { position: relative; margin-bottom: 18px; }
+        .input-group { position: relative; width: 100%; }
 
         input {
             width: 100%;
             background: rgba(255, 255, 255, 0.04);
-            border: 1.5px solid rgba(255, 255, 255, 0.05);
-            padding: 18px 22px;
+            border: 1.2px solid rgba(255, 255, 255, 0.05);
+            padding: 16px 20px;
             border-radius: 20px;
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         input:focus {
             background: rgba(255, 255, 255, 0.08);
             border-color: var(--hot-pink);
-            box-shadow: 0 0 20px rgba(244, 114, 182, 0.15);
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.1);
         }
 
-        input.invalid { border-color: var(--error-red); animation: shake 0.4s; }
-
-        .eye, .status-icon {
+        /* Icons positioning */
+        .field-icon {
             position: absolute;
-            right: 20px;
+            right: 18px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            opacity: 0.6;
-            transition: 0.3s;
+            font-size: 1.1rem;
+            opacity: 0.5;
         }
 
-        #next-tab {
+        .footer-text {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: var(--hot-pink);
+            font-weight: 800;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* NEXT Bottom Button */
+        #next-btn {
             position: fixed;
             bottom: -100px;
             left: 0; right: 0;
             background: var(--hot-pink);
-            height: 80px;
+            height: 75px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -106,103 +112,90 @@
             font-size: 1.2rem;
             letter-spacing: 4px;
             cursor: pointer;
-            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-radius: 30px 30px 0 0;
-            box-shadow: 0 -10px 40px rgba(244, 114, 182, 0.4);
+            box-shadow: 0 -10px 30px rgba(244, 114, 182, 0.3);
             z-index: 100;
         }
-        #next-tab.active { bottom: 0; }
+        #next-btn.active { bottom: 0; }
 
-        .code-group { display: flex; gap: 8px; justify-content: center; margin-top: 20px; }
-        .code-box { width: 40px !important; text-align: center; padding: 15px 0 !important; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="panel" id="main-panel">
+    <div class="panel">
         <div id="reg-view">
             <h1>KRONOS</h1>
-            <div class="input-box">
+            
+            <div class="input-group">
                 <input type="email" id="email" placeholder="Gmail Address" oninput="validate()">
             </div>
-            <div class="input-box">
-                <input type="password" id="pass" placeholder="Secure Code">
-                <span class="eye" onclick="toggle()">👁️</span>
+
+            <div class="input-group">
+                <input type="password" id="pass" placeholder="Secure Code" oninput="validate()">
+                <span class="field-icon" onclick="togglePass()">👁️</span>
             </div>
-            <div class="input-box">
+
+            <div class="input-group">
                 <input type="text" id="user" placeholder="Username" oninput="validate()">
-                <span id="u-mark" class="status-icon"></span>
+                <span id="user-status" class="field-icon" style="pointer-events: none;"></span>
             </div>
-            <p style="font-size: 0.8rem; color: #64748b; margin-top: 20px;">
-                You don't have an account?? <br>
-                <span style="color:var(--hot-pink); font-weight:800; cursor:pointer;">CREATE IT NOW</span>
+
+            <p class="footer-text">
+                You don't have an account??
+                <span class="highlight">CREATE IT NOW</span>
             </p>
         </div>
 
-        <div id="verify-view" style="display: none;">
+        <div id="verify-view" class="hidden">
             <h1 style="font-size: 2.2rem;">VERIFY</h1>
-            <p style="color: #94a3b8; font-size: 0.8rem;">Enter the 6-digit code</p>
-            <div class="code-group">
-                <input type="text" maxlength="1" class="code-box">
-                <input type="text" maxlength="1" class="code-box">
-                <input type="text" maxlength="1" class="code-box">
-                <input type="text" maxlength="1" class="code-box">
-                <input type="text" maxlength="1" class="code-box">
-                <input type="text" maxlength="1" class="code-box">
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 10px;">Check your email for 6-digit code</p>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+                <input type="text" maxlength="1" style="width: 40px; text-align: center; padding: 12px 0;">
+                <input type="text" maxlength="1" style="width: 40px; text-align: center; padding: 12px 0;">
+                <input type="text" maxlength="1" style="width: 40px; text-align: center; padding: 12px 0;">
+                <input type="text" maxlength="1" style="width: 40px; text-align: center; padding: 12px 0;">
+                <input type="text" maxlength="1" style="width: 40px; text-align: center; padding: 12px 0;">
+                <input type="text" maxlength="1" style="width: 40px; text-align: center; padding: 12px 0;">
             </div>
-            <button style="margin-top:30px; background:var(--hot-pink); border:none; padding:15px; width:100%; border-radius:20px; color:white; font-weight:bold; cursor:pointer;">CONFIRM ACCESS</button>
+            <button style="margin-top:20px; background:var(--hot-pink); border:none; padding:15px; width:100%; border-radius:18px; color:white; font-weight:bold; cursor:pointer;">CONFIRM</button>
         </div>
     </div>
 
-    <div id="next-tab" onclick="goVerify()">NEXT</div>
+    <div id="next-btn" onclick="showVerify()">NEXT</div>
 
     <script>
-        function toggle() {
+        function togglePass() {
             const p = document.getElementById('pass');
             p.type = p.type === 'password' ? 'text' : 'password';
         }
 
         function validate() {
-            const e = document.getElementById('email');
-            const u = document.getElementById('user');
-            const mark = document.getElementById('u-mark');
-            const next = document.getElementById('next-tab');
-            const userRegex = /^[a-z0-9]+$/;
+            const e = document.getElementById('email').value;
+            const p = document.getElementById('pass').value;
+            const u = document.getElementById('user').value;
+            const next = document.getElementById('next-btn');
+            const status = document.getElementById('user-status');
+            
+            const userValid = /^[a-z0-9]+$/.test(u) && u.length > 3;
 
-            // Email Check
-            if (e.value.length > 5 && !e.value.endsWith('@gmail.com')) e.classList.add('invalid');
-            else e.classList.remove('invalid');
+            if (userValid) { status.innerHTML = "✅"; status.style.color = "#00ff88"; status.style.opacity = "1"; }
+            else if (u.length > 0) { status.innerHTML = "❌"; status.style.color = "#ff4d4d"; status.style.opacity = "1"; }
+            else { status.style.opacity = "0"; }
 
-            // User Check
-            if (u.value.length > 0 && !userRegex.test(u.value)) {
-                u.classList.add('invalid');
-                mark.innerHTML = "❌"; mark.style.color = "#ff4d4d";
-            } else if (u.value.length > 3) {
-                u.classList.remove('invalid');
-                mark.innerHTML = "✅"; mark.style.color = "#00ff88";
-            } else { mark.innerHTML = ""; }
-
-            // Show NEXT
-            if (e.value.endsWith('@gmail.com') && userRegex.test(u.value) && u.value.length > 3 && document.getElementById('pass').value.length > 5) {
+            if (e.endsWith('@gmail.com') && userValid && p.length > 5) {
                 next.classList.add('active');
             } else {
                 next.classList.remove('active');
             }
         }
 
-        function goVerify() {
-            document.getElementById('reg-view').style.display = 'none';
-            document.getElementById('verify-view').style.display = 'block';
-            document.getElementById('next-tab').classList.remove('active');
+        function showVerify() {
+            document.getElementById('reg-view').classList.add('hidden');
+            document.getElementById('verify-view').classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('active');
         }
-
-        // Auto-focus for code boxes
-        const codes = document.querySelectorAll('.code-box');
-        codes.forEach((c, i) => {
-            c.addEventListener('input', () => {
-                if (c.value.length === 1 && i < codes.length - 1) codes[i+1].focus();
-            });
-        });
     </script>
 </body>
 </html>
