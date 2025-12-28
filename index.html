@@ -6,8 +6,8 @@
     <title>KRONOS | Elite OS</title>
     <style>
         :root {
-            --primary-pink: #f472b6;
-            --liquid-white: rgba(255, 255, 255, 0.08);
+            --hot-pink: #f472b6;
+            --liquid-glass: rgba(255, 255, 255, 0.05);
             --error-red: #ff4d4d;
             --success-green: #00ff88;
         }
@@ -29,255 +29,180 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            font-family: -apple-system, system-ui, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             margin: 0;
             overflow: hidden;
-            text-align: center;
         }
 
-        /* Glassmorphism Panel */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(35px) saturate(200%);
-            -webkit-backdrop-filter: blur(35px) saturate(200%);
+        .panel {
+            background: var(--liquid-glass);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 45px;
+            border-radius: 40px;
             padding: 45px 30px;
             width: 90%;
-            max-width: 400px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            max-width: 380px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            text-align: center;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         h1 {
             font-size: 3rem;
-            letter-spacing: 6px;
-            color: var(--primary-pink);
-            text-shadow: 0 0 20px rgba(244, 114, 182, 0.4);
+            letter-spacing: 8px;
+            color: var(--hot-pink);
+            text-shadow: 0 0 25px var(--hot-pink);
             margin-bottom: 30px;
             text-transform: uppercase;
         }
 
-        /* Watery Input Style */
-        .input-wrapper { position: relative; margin-bottom: 18px; }
+        .input-box { position: relative; margin-bottom: 18px; }
 
         input {
             width: 100%;
-            background: var(--liquid-white);
+            background: rgba(255, 255, 255, 0.04);
             border: 1.5px solid rgba(255, 255, 255, 0.05);
             padding: 18px 22px;
-            border-radius: 22px;
+            border-radius: 20px;
             color: #fff;
-            font-size: 0.95rem;
+            font-size: 1rem;
             outline: none;
-            transition: all 0.4s ease;
+            transition: 0.3s;
         }
 
         input:focus {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: var(--primary-pink);
-            box-shadow: 0 0 30px rgba(244, 114, 182, 0.15);
-            transform: scale(1.01);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--hot-pink);
+            box-shadow: 0 0 20px rgba(244, 114, 182, 0.15);
         }
 
         input.invalid { border-color: var(--error-red); animation: shake 0.4s; }
 
-        /* Eye & Status Icons */
-        .icon-btn {
+        .eye, .status-icon {
             position: absolute;
-            right: 18px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            font-size: 1.2rem;
-            filter: grayscale(1);
+            opacity: 0.6;
             transition: 0.3s;
         }
-        .icon-btn:hover { filter: grayscale(0); text-shadow: 0 0 10px var(--primary-pink); }
 
-        .btn-main {
-            width: 100%;
-            padding: 18px;
-            background: var(--primary-pink);
-            border: none;
-            border-radius: 22px;
-            color: #fff;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.4s ease;
-            box-shadow: 0 15px 35px rgba(244, 114, 182, 0.25);
-            margin-top: 10px;
-        }
-
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 0 40px var(--primary-pink); }
-
-        .create-now {
-            color: var(--primary-pink);
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-        .create-now:hover { text-shadow: 0 0 15px var(--primary-pink); }
-
-        /* Bottom "NEXT" Toast */
-        #next-toast {
+        #next-tab {
             position: fixed;
             bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary-pink);
-            color: white;
-            padding: 16px 80px;
-            border-radius: 50px;
+            left: 0; right: 0;
+            background: var(--hot-pink);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 900;
-            letter-spacing: 2px;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
             cursor: pointer;
             transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 40px rgba(244, 114, 182, 0.5);
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -10px 40px rgba(244, 114, 182, 0.4);
+            z-index: 100;
         }
-        #next-toast.active { bottom: 40px; }
+        #next-tab.active { bottom: 0; }
 
-        /* Existing Email Overlay Box */
-        .overlay-box {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: rgba(15, 23, 42, 0.95);
-            padding: 30px;
-            border-radius: 30px;
-            border: 1px solid var(--primary-pink);
-            display: none;
-            z-index: 200;
-        }
-
+        .code-group { display: flex; gap: 8px; justify-content: center; margin-top: 20px; }
+        .code-box { width: 40px !important; text-align: center; padding: 15px 0 !important; }
     </style>
 </head>
 <body>
 
-    <div class="glass-panel" id="main-card">
-        <div id="view-login">
+    <div class="panel" id="main-panel">
+        <div id="reg-view">
             <h1>KRONOS</h1>
-            <div class="input-wrapper">
-                <input type="email" placeholder="Access ID">
+            <div class="input-box">
+                <input type="email" id="email" placeholder="Gmail Address" oninput="validate()">
             </div>
-            <div class="input-wrapper">
-                <input type="password" id="log-pass" placeholder="Secure Code">
-                <span class="icon-btn" onclick="togglePass('log-pass')">👁️</span>
+            <div class="input-box">
+                <input type="password" id="pass" placeholder="Secure Code">
+                <span class="eye" onclick="toggle()">👁️</span>
             </div>
-            <button class="btn-main">INITIALIZE LOGIN</button>
-            <p style="margin-top: 25px; font-size: 0.8rem; color: #94a3b8;">
+            <div class="input-box">
+                <input type="text" id="user" placeholder="Username" oninput="validate()">
+                <span id="u-mark" class="status-icon"></span>
+            </div>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 20px;">
                 You don't have an account?? <br>
-                <span class="create-now" onclick="switchView('reg')">CREATE IT NOW</span>
+                <span style="color:var(--hot-pink); font-weight:800; cursor:pointer;">CREATE IT NOW</span>
             </p>
         </div>
 
-        <div id="view-reg" style="display: none;">
-            <h1 style="font-size: 2.2rem;">New Account!</h1>
-            <div class="input-wrapper">
-                <input type="email" id="reg-email" placeholder="Gmail Address" oninput="valEmail(this)">
+        <div id="verify-view" style="display: none;">
+            <h1 style="font-size: 2.2rem;">VERIFY</h1>
+            <p style="color: #94a3b8; font-size: 0.8rem;">Enter the 6-digit code</p>
+            <div class="code-group">
+                <input type="text" maxlength="1" class="code-box">
+                <input type="text" maxlength="1" class="code-box">
+                <input type="text" maxlength="1" class="code-box">
+                <input type="text" maxlength="1" class="code-box">
+                <input type="text" maxlength="1" class="code-box">
+                <input type="text" maxlength="1" class="code-box">
             </div>
-            <div class="input-wrapper">
-                <input type="password" id="reg-pass" placeholder="Secure Code">
-                <span class="icon-btn" onclick="togglePass('reg-pass')">👁️</span>
-            </div>
-            <div class="input-wrapper">
-                <input type="text" id="reg-user" placeholder="Username" oninput="valUser(this)">
-                <span id="user-mark" class="icon-btn" style="pointer-events: none; opacity: 0;"></span>
-            </div>
-            <p style="margin-top: 15px; font-size: 0.8rem; color: #94a3b8;" onclick="switchView('login')">
-                Already cleared? <span style="color:var(--primary-pink); cursor:pointer;">Login</span>
-            </p>
-        </div>
-
-        <div id="view-verify" style="display: none;">
-            <h1 style="font-size: 2.2rem;">Verify</h1>
-            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 25px;">Enter the 6-digit code sent to your email</p>
-            <div class="input-wrapper">
-                <input type="text" maxlength="6" style="text-align: center; font-size: 1.5rem; letter-spacing: 10px;" placeholder="000000">
-            </div>
-            <button class="btn-main">CONFIRM CODE</button>
+            <button style="margin-top:30px; background:var(--hot-pink); border:none; padding:15px; width:100%; border-radius:20px; color:white; font-weight:bold; cursor:pointer;">CONFIRM ACCESS</button>
         </div>
     </div>
 
-    <div id="next-toast" onclick="switchView('verify')">NEXT</div>
-
-    <div id="email-error-box" class="overlay-box">
-        <p style="margin-bottom: 20px;">This email is already registered!</p>
-        <button class="btn-main" onclick="switchView('login')">LOGIN</button>
-    </div>
+    <div id="next-tab" onclick="goVerify()">NEXT</div>
 
     <script>
-        function togglePass(id) {
-            const el = document.getElementById(id);
-            el.type = el.type === 'password' ? 'text' : 'password';
+        function toggle() {
+            const p = document.getElementById('pass');
+            p.type = p.type === 'password' ? 'text' : 'password';
         }
 
-        function switchView(v) {
-            document.getElementById('view-login').style.display = 'none';
-            document.getElementById('view-reg').style.display = 'none';
-            document.getElementById('view-verify').style.display = 'none';
-            document.getElementById('email-error-box').style.display = 'none';
-            document.getElementById('next-toast').classList.remove('active');
+        function validate() {
+            const e = document.getElementById('email');
+            const u = document.getElementById('user');
+            const mark = document.getElementById('u-mark');
+            const next = document.getElementById('next-tab');
+            const userRegex = /^[a-z0-9]+$/;
 
-            if(v === 'login') document.getElementById('view-login').style.display = 'block';
-            if(v === 'reg') document.getElementById('view-reg').style.display = 'block';
-            if(v === 'verify') document.getElementById('view-verify').style.display = 'block';
-        }
+            // Email Check
+            if (e.value.length > 5 && !e.value.endsWith('@gmail.com')) e.classList.add('invalid');
+            else e.classList.remove('invalid');
 
-        function valEmail(el) {
-            if (el.value.length > 5 && !el.value.endsWith('@gmail.com')) {
-                el.classList.add('invalid');
-            } else if (el.value === "used@gmail.com") { // Example for "Already used"
-                document.getElementById('email-error-box').style.display = 'block';
+            // User Check
+            if (u.value.length > 0 && !userRegex.test(u.value)) {
+                u.classList.add('invalid');
+                mark.innerHTML = "❌"; mark.style.color = "#ff4d4d";
+            } else if (u.value.length > 3) {
+                u.classList.remove('invalid');
+                mark.innerHTML = "✅"; mark.style.color = "#00ff88";
+            } else { mark.innerHTML = ""; }
+
+            // Show NEXT
+            if (e.value.endsWith('@gmail.com') && userRegex.test(u.value) && u.value.length > 3 && document.getElementById('pass').value.length > 5) {
+                next.classList.add('active');
             } else {
-                el.classList.remove('invalid');
-                checkStatus();
+                next.classList.remove('active');
             }
         }
 
-        function valUser(el) {
-            const regex = /^[a-z0-9]+$/; // Only lowercase and numbers
-            const mark = document.getElementById('user-mark');
-            
-            if (el.value.length > 0 && !regex.test(el.value)) {
-                el.classList.add('invalid');
-                mark.style.opacity = "1";
-                mark.innerHTML = "❌";
-                mark.style.color = "#ff4d4d";
-            } else if (el.value === "admin" || el.value === "yasser") { // Taken usernames
-                el.classList.add('invalid');
-                mark.style.opacity = "1";
-                mark.innerHTML = "❌";
-            } else if (el.value.length > 3) {
-                el.classList.remove('invalid');
-                mark.style.opacity = "1";
-                mark.innerHTML = "✅";
-                mark.style.color = "#00ff88";
-            } else {
-                mark.style.opacity = "0";
-            }
-            checkStatus();
+        function goVerify() {
+            document.getElementById('reg-view').style.display = 'none';
+            document.getElementById('verify-view').style.display = 'block';
+            document.getElementById('next-tab').classList.remove('active');
         }
 
-        function checkStatus() {
-            const email = document.getElementById('reg-email').value;
-            const user = document.getElementById('reg-user').value;
-            const pass = document.getElementById('reg-pass').value;
-            const toast = document.getElementById('next-toast');
-
-            if (email.endsWith('@gmail.com') && /^[a-z0-9]+$/.test(user) && user.length > 3 && pass.length > 5) {
-                toast.classList.add('active');
-            } else {
-                toast.classList.remove('active');
-            }
-        }
+        // Auto-focus for code boxes
+        const codes = document.querySelectorAll('.code-box');
+        codes.forEach((c, i) => {
+            c.addEventListener('input', () => {
+                if (c.value.length === 1 && i < codes.length - 1) codes[i+1].focus();
+            });
+        });
     </script>
 </body>
 </html>
